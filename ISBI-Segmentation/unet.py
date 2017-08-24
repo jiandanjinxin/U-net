@@ -9,6 +9,7 @@ from generatenpy import dataProcess
 import matplotlib.pyplot as plt
 from keras.callbacks import *
 from keras.utils.vis_utils import plot_model
+from skimage.io import imsave, imread
 import shutil
 import time
 

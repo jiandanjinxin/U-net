@@ -86,7 +86,7 @@ class dataProcess(object):
         print('Saving to .npy files done.')
 
     def load_train_data(self):
-        # 读入训练数据包括label_mask(npy格式), 归一化(只减去了均值)
+        # 读入训练数据包括label_mask(npy格式), 归一化(减去了均值,除以方差)
         print('-' * 30)
         print('load train images...')
         print('-' * 30)
@@ -95,8 +95,17 @@ class dataProcess(object):
         imgs_train = imgs_train.astype('float32')
         imgs_mask_train = imgs_mask_train.astype('float32')
         imgs_train /= 255
-        mean = imgs_train.mean(axis=0)
+        #mean = imgs_train.mean(axis=0)
+        #imgs_train -= mean
+        
+        mean = np.mean(imgs_train)  # mean for data centering
+        std = np.std(imgs_train)  # std for data normalization
+
         imgs_train -= mean
+        imgs_train /= std
+        
+        
+        
         imgs_mask_train /= 255
         imgs_mask_train[imgs_mask_train > 0.5] = 1
         imgs_mask_train[imgs_mask_train <= 0.5] = 0
@@ -104,13 +113,25 @@ class dataProcess(object):
 
     def load_test_data(self):
         print('-' * 30)
+        
+        print('load train images...')
+        print('-' * 30)
+        imgs_train = np.load(self.npy_path + "/imgs_train.npy")
+        imgs_train = imgs_train.astype('float32')
+        imgs_train /= 255
+        mean = imgs_train.mean(axis=0)
+        mean = np.mean(imgs_train)  # mean for data centering
+        std = np.std(imgs_train)  # std for data normalization
+        
+        
         print('load test images...')
         print('-' * 30)
         imgs_test = np.load(self.npy_path + "/imgs_test.npy")
         imgs_test = imgs_test.astype('float32')
         imgs_test /= 255
-        mean = imgs_test.mean(axis=0)
+        #mean = imgs_test.mean(axis=0)
         imgs_test -= mean
+        imgs_test /= std
         return imgs_test
 
 

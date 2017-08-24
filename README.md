@@ -5,5 +5,7 @@ ISBI-Segmentation is about the [ISBI Challenge: Segmentation of neuronal structu
 
 
 **My Blogs:**
+
 [jiandanjinxin-CSDN-Blog](http://blog.csdn.net/jiandanjinxin)
+
 [jianshu Blog](http://www.jianshu.com/u/8ad7903302b3)

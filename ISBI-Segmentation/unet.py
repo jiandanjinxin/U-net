@@ -25,8 +25,8 @@ class myUnet(object):
 
 		mydata = dataProcess(self.img_rows, self.img_cols)
 		imgs_train, imgs_mask_train = mydata.load_train_data()
-		imgs_test,imgs_id_test = mydata.load_test_data()
-		return imgs_train, imgs_mask_train, imgs_test
+		imgs_test, imgs_id_test = mydata.load_test_data()
+		return imgs_train, imgs_mask_train, imgs_test, imgs_id_test
 
 	def get_unet(self):
 
@@ -156,7 +156,7 @@ class myUnet(object):
 	def train(self):
 
 		print("loading data")
-		imgs_train, imgs_mask_train, imgs_test = self.load_data()
+		imgs_train, imgs_mask_train, imgs_test, imgs_id_test = self.load_data()
 		print("loading data done")
 		log_filepath = '/tmp/logs/run_c'
 		model = self.get_unet()

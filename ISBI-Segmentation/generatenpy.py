@@ -24,9 +24,9 @@ class dataProcess(object):
         dirtyfold = 'npydata'
         if not os.path.exists(dirtyfold):
             os.mkdir(dirtyfold)
-        else:
-            shutil.rmtree(dirtyfold)
-            os.mkdir(dirtyfold)
+        #else:
+            #shutil.rmtree(dirtyfold)
+            #os.mkdir(dirtyfold)
 
         self.out_rows = out_rows
         self.out_cols = out_cols

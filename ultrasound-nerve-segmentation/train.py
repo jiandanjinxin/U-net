@@ -11,8 +11,11 @@ from keras.callbacks import ModelCheckpoint
 from keras import backend as K
 
 from data import load_train_data, load_test_data
+from time
 
 K.set_image_data_format('channels_last')  # TF dimension ordering in this code
+
+starttime = time.clock()
 
 img_rows = 96
 img_cols = 96
@@ -108,15 +111,25 @@ def train_and_predict():
     print('-'*30)
     print('Creating and compiling model...')
     print('-'*30)
+    log_filepath = '/tmp/logs/run_c'
     model = get_unet()
+    
+    #Visualize model
+    plot_model(model, 'u-net-model-architecture.png', show_shapes=True)
+    #model_file_format = 'model.{epoch:03d}.hdf5'
+    #print model_file_format
+    
+    
     model_checkpoint = ModelCheckpoint('weights.h5', monitor='val_loss', save_best_only=True)
-
+    tb_cb = TensorBoard(log_dir=log_filepath, write_images=False, histogram_freq=1, write_graph=True)
+    
+    
     print('-'*30)
     print('Fitting model...')
     print('-'*30)
     model.fit(imgs_train, imgs_mask_train, batch_size=32, nb_epoch=20, verbose=1, shuffle=True,
               validation_split=0.2,
-              callbacks=[model_checkpoint])
+              callbacks=[model_checkpoint, tb_cb])
 
     print('-'*30)
     print('Loading and preprocessing test data...')
@@ -151,3 +164,7 @@ def train_and_predict():
 
 if __name__ == '__main__':
     train_and_predict()
+    
+    
+endtime = time.clock()
+print("The train_and_predict running time is %g s" %(endtime-starttime))

@@ -162,8 +162,8 @@ class myUnet(object):
 
 		#Visualize model
 		plot_model(model, 'u-net-model-architecture.png', show_shapes=True)
-        #model_file_format = 'model.{epoch:03d}.hdf5'
-        #print model_file_format
+        　　　　　#model_file_format = 'model.{epoch:03d}.hdf5'
+        　　　　　#print model_file_format
 		model_checkpoint = ModelCheckpoint('unet.hdf5', monitor='loss',verbose=1, save_best_only=True)
 		tb_cb = TensorBoard(log_dir=log_filepath, write_images=False, histogram_freq=1, write_graph=True)
 		print('Fitting model...')
@@ -172,6 +172,16 @@ class myUnet(object):
 		print('predict test data')
 		imgs_mask_test = model.predict(imgs_test, batch_size=1, verbose=1)
 		np.save('imgs_mask_test.npy', imgs_mask_test)
+		print('-' * 30)
+   　　　　　　　 print('Saving predicted masks to files...')
+    　　　　　　　print('-' * 30)
+    　　　　　　　pred_dir = 'preds'
+    　　　　　　　if not os.path.exists(pred_dir):
+			os.mkdir(pred_dir)
+		for image, image_id in zip(imgs_mask_test, imgs_id_test):
+			image = (image[:, :, 0] * 255.).astype(np.uint8)
+			imsave(os.path.join(pred_dir, str(image_id) + '_pred.png'), image)
+		
 
 
 if __name__ == '__main__':

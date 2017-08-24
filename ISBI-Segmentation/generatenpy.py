@@ -92,7 +92,7 @@ class dataProcess(object):
             i += 1
         print('loading done', imgdatas.shape)
         np.save(self.npy_path + '/imgs_test.npy', imgdatas)            # 将30张训练集和30张label生成npy数据
-        np.save(self.npy_path + 'imgs_id_test.npy', imgs_id)
+        np.save(self.npy_path + '/imgs_id_test.npy', imgs_id)
         # np.save(self.npy_path + '/imgs_mask_train.npy', imglabels)
         print('Saving to .npy files done.')
 
@@ -125,7 +125,7 @@ class dataProcess(object):
     def load_test_data(self):
         print('-' * 30)
         
-        print('load train images...')
+        print('load train and test images...')
         print('-' * 30)
         imgs_train = np.load(self.npy_path + "/imgs_train.npy")
         imgs_id = np.load(self.npy_path + "/imgs_id_test.npy")
@@ -153,7 +153,9 @@ if __name__ == "__main__":
     mydata.create_train_data()
     mydata.create_test_data()
     imgs_train, imgs_mask_train = mydata.load_train_data()
+    imgs_test, imgs_id = mydata.load_test_data()
     print(imgs_train.shape, imgs_mask_train.shape)
+    print(imgs_test.shape, imgs_id.shape)
 
 endtime = time.clock()
 print("The generatenpy running time is %g s" %(endtime-starttime))

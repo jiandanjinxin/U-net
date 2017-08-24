@@ -5,7 +5,7 @@ from keras.layers import Input, merge, Conv2D, MaxPooling2D, UpSampling2D, Dropo
 from keras.optimizers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from keras import backend as keras
-from data import dataProcess
+from generatenpy import dataProcess
 import matplotlib.pyplot as plt
 from keras.callbacks import *
 from keras.utils.vis_utils import plot_model

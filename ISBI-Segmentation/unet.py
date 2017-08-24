@@ -8,6 +8,7 @@ from data import dataProcess
 import matplotlib.pyplot as plt
 from keras.callbacks import *
 from keras.utils.vis_utils import plot_model
+import shutil
 import time
 
 starttime = time.clock()
@@ -178,6 +179,11 @@ class myUnet(object):
     　　　　　　　pred_dir = 'preds'
     　　　　　　　if not os.path.exists(pred_dir):
 			os.mkdir(pred_dir)
+		else:
+			shutil(pred_dir)
+			os.mkdir(pred_dir)
+			
+			
 		for image, image_id in zip(imgs_mask_test, imgs_id_test):
 			image = (image[:, :, 0] * 255.).astype(np.uint8)
 			imsave(os.path.join(pred_dir, str(image_id) + '_pred.png'), image)

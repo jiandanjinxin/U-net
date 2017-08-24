@@ -181,7 +181,7 @@ class myUnet(object):
 		if not os.path.exists(pred_dir):
 			os.mkdir(pred_dir)
 		else:
-			shutil(pred_dir)
+			shutil.rmtree(pred_dir)
 			os.mkdir(pred_dir)
 			
 			

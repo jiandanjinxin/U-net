@@ -9,10 +9,12 @@ from keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspo
 from keras.optimizers import Adam
 from keras.callbacks import ModelCheckpoint
 from keras import backend as K
+from keras.callbacks import *
+from keras.utils.vis_utils import plot_model
 import shutil
 
 from data import load_train_data, load_test_data
-from time
+import time
 
 K.set_image_data_format('channels_last')  # TF dimension ordering in this code
 
@@ -160,7 +162,7 @@ def train_and_predict():
     if not os.path.exists(pred_dir):
         os.mkdir(pred_dir)
     else:
-        shutil(pred_dir)
+        shutil.rmtree(pred_dir)
         os.mkdir(pred_dir)
         
     for image, image_id in zip(imgs_mask_test, imgs_id_test):
